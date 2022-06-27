@@ -44,11 +44,12 @@
 </template>
 
 <script setup>
+import util from '../../utils/utils'
+import { useStore } from 'vuex'
 import { computed, reactive, ref } from 'vue'
 import { validatePassword } from './rules'
-import userApi from '../../api/user'
 import md5 from 'md5'
-
+const store = useStore()
 const loginFormRef = ref(null)
 // 密码框type
 const passwordType = ref('password')
@@ -87,9 +88,9 @@ const handleLoginSubmit = async () => {
   if (!loginFormRef.value) return
   await loginFormRef.value.validate(async (valid) => {
     if (valid) {
-      loginForm.password = md5(loginForm.password)
-      const data = await userApi.login(loginForm)
-      console.log(data)
+      const newLoginForm = util.deepCopy(loginForm)
+      newLoginForm.password = md5(newLoginForm.password)
+      store.dispatch('user/login', newLoginForm)
     }
   })
 }
