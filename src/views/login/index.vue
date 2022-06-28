@@ -49,7 +49,10 @@ import { useStore } from 'vuex'
 import { computed, reactive, ref } from 'vue'
 import { validatePassword } from './rules'
 import md5 from 'md5'
+// 引入路由
+import { useRouter } from 'vue-router'
 const store = useStore()
+const router = useRouter()
 const loginFormRef = ref(null)
 // 密码框type
 const passwordType = ref('password')
@@ -90,7 +93,8 @@ const handleLoginSubmit = async () => {
     if (valid) {
       const newLoginForm = util.deepCopy(loginForm)
       newLoginForm.password = md5(newLoginForm.password)
-      store.dispatch('user/login', newLoginForm)
+      const response = await store.dispatch('user/login', newLoginForm)
+      if (response.token) router.push('/')
     }
   })
 }

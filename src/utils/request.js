@@ -1,5 +1,6 @@
 // 封装axios
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 import md5 from 'md5'
 import loading from './loading'
 const instance = axios.create({
@@ -29,15 +30,31 @@ instance.interceptors.response.use(
   (response) => {
     // 关闭loading
     loading.close()
-    return response
+    // 数据解构处理
+    const { success, data, message } = response.data
+    // 响应信息提示处理
+    if (success) {
+      return data
+    } else {
+      // ElMessage.error(message)
+      _showError(message)
+      return Promise.reject(new Error(message))
+    }
   },
   (error) => {
     // 关闭loading
     loading.close()
+    // 响应失败信息提示
+    // ElMessage.error(error.message)
+    _showError(error.message)
     return Promise.reject(error)
   }
 )
-
+// 响应提示信息
+const _showError = (message) => {
+  const info = message || '发生未知错误'
+  ElMessage.error(info)
+}
 // 统一传参
 const requset = (options) => {
   if (options.method.toLowerCase() === 'get') {
