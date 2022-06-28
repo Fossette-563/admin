@@ -1,22 +1,19 @@
 <template>
-  <div class="app-container">
-    主页
-    <div class="app-wrapper">
-      <sidebar class="sidebar-container"></sidebar>
-      <div class="min-container">
-        <div class="fiexed-header">
-          <navbar></navbar>
-        </div>
-        <app-main></app-main>
+  <div class="app-wrapper">
+    <sidebar class="sidebar-container"></sidebar>
+    <div class="main-container">
+      <div class="fiexed-header">
+        <navbar></navbar>
       </div>
+      <app-main></app-main>
     </div>
   </div>
 </template>
 
 <script setup>
 import Sidebar from './Sidebar'
-import Navbar from './Navbar.vue'
-import AppMain from './AppMain.vue'
+import Navbar from './Navbar'
+import AppMain from './AppMain'
 </script>
 
 <style lang="scss" scoped>
@@ -24,6 +21,7 @@ import AppMain from './AppMain.vue'
   position: relative;
   width: 100%;
   height: 100%;
+
   .sidebar-container {
     width: 210px;
     height: 100%;
@@ -36,11 +34,13 @@ import AppMain from './AppMain.vue'
     -ms-overflow-style: none; /* IE 10+ */
     scrollbar-width: none; /* Firefox */
   }
+
   .main-container {
     width: calc(100% - 210px);
     height: 100%;
     margin-left: 210px;
     position: relative;
+
     .fixed-header {
       position: fixed;
       top: 0;
