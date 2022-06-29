@@ -14,8 +14,13 @@ instance.interceptors.request.use(
     // 开启loading
     loading.open()
     const { icode, time } = getTestICode()
+    // icod解密
     config.headers.icode = icode
     config.headers.codeType = time
+    // 将token发送给后台
+    // if (store.getters.token) {
+    //   config.headers.Authorization = `Bearer ${store.getters.token}`
+    // }
     return config
   },
   (error) => {

@@ -2,10 +2,11 @@
   <div class="app-wrapper">
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
-      <div class="fiexed-header">
+      <div class="fixed-header">
         <navbar></navbar>
+        <TagVIew></TagVIew>
       </div>
-      <app-main></app-main>
+      <AppMain></AppMain>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 import AppMain from './AppMain'
+import TagVIew from '@/components/TagView.vue'
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +49,12 @@ import AppMain from './AppMain'
       right: 0;
       z-index: 9;
       width: calc(100% - 210px);
+      .navbar {
+        position: relative;
+        height: 50px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+      }
     }
   }
 }

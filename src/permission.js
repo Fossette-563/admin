@@ -11,10 +11,16 @@ const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
   const token = store.getters.token
+  console.log(token)
   if (token) {
     if (to.path === '/login') {
       next(from.path)
     } else {
+      // // 如果当前是登录页面，就判断是否有用户信息
+      // // 如果没有用户信息就获取
+      // if(!store.getters.hasUserInfo){
+      //   await store.dispatch('user、getUserInfo')
+      // }
       next()
     }
   } else {
