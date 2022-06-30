@@ -9,7 +9,7 @@ import store from './store'
  */
 const whiteList = ['/login']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const token = store.getters.token
   console.log(token)
   if (token) {
@@ -18,9 +18,9 @@ router.beforeEach((to, from, next) => {
     } else {
       // // 如果当前是登录页面，就判断是否有用户信息
       // // 如果没有用户信息就获取
-      // if(!store.getters.hasUserInfo){
-      //   await store.dispatch('user、getUserInfo')
-      // }
+      if (!store.getters.hasUserInfo) {
+        await store.dispatch('user/getUserInfo')
+      }
       next()
     }
   } else {

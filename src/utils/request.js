@@ -3,12 +3,14 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import md5 from 'md5'
 import loading from './loading'
+import store from '@/store'
+import router from '../router/index'
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API,
   timeout: 5000
 })
 
-// 请求拦截器
+// 请求拦截
 instance.interceptors.request.use(
   (config) => {
     // 开启loading
@@ -18,14 +20,15 @@ instance.interceptors.request.use(
     config.headers.icode = icode
     config.headers.codeType = time
     // 将token发送给后台
-    // if (store.getters.token) {
-    //   config.headers.Authorization = `Bearer ${store.getters.token}`
-    // }
+    if (store.getters.token) {
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
     return config
   },
   (error) => {
     // 关闭loading
     loading.close()
+
     return Promise.reject(error)
   }
 )
@@ -49,6 +52,15 @@ instance.interceptors.response.use(
   (error) => {
     // 关闭loading
     loading.close()
+    // token过期状态 401 描述信息 无感知登录 无感知刷新
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      router.push('/login')
+      store.dispatch('user/logout')
+    }
     // 响应失败信息提示
     // ElMessage.error(error.message)
     _showError(error.message)

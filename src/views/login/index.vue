@@ -51,6 +51,8 @@ import { validatePassword } from './rules'
 import md5 from 'md5'
 // 引入路由
 import { useRouter } from 'vue-router'
+// 引入当前时间的时间戳
+import { setTimeStamp } from '../../utils/auth'
 const store = useStore()
 const router = useRouter()
 const loginFormRef = ref(null)
@@ -94,12 +96,12 @@ const handleLoginSubmit = async () => {
       const newLoginForm = util.deepCopy(loginForm)
       newLoginForm.password = md5(newLoginForm.password)
       const response = await store.dispatch('user/login', newLoginForm)
+      setTimeStamp()
       if (response.token) router.push('/')
     }
   })
 }
 </script>
-http://localhost:8080/#/login
 <style lang="scss" scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;

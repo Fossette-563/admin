@@ -65,6 +65,16 @@ const privateRoutes = [
         }
       },
       {
+        path: 'user/info/:id',
+        name: 'info',
+        component: () => import('../views/user/info')
+      },
+      {
+        path: 'user/import',
+        name: 'import',
+        component: () => import('../views/user/import')
+      },
+      {
         path: '/user/role',
         name: 'role',
         component: () => import('../views/user/role.vue'),

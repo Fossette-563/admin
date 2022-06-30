@@ -1,10 +1,10 @@
 import UserApi from '../../api/user'
-import { setItem, getItem } from '@/utils/storage'
+import { setItem, getItem, removeItem } from '@/utils/storage'
 export default {
   namespaced: true,
   state: () => ({
     token: getItem('token') || '',
-    userInfo: {}
+    userInfo: getItem('userinfo') || {}
   }),
   mutations: {
     // token
@@ -15,14 +15,27 @@ export default {
     // 用户信息
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
+      setItem('userInfo', userInfo)
     }
   },
   actions: {
+    // 退出
+    logout({ commit }) {
+      commit('setToken', '')
+      commit('setUserInfo', '')
+      removeItem('token')
+      removeItem('userInfo')
+    },
     // 用户信息
-    async getUserInfo(context) {
-      const res = await this.getUserInfo()
-      this.commit('user/setUserInfo', res)
-      return res
+    async getUserInfo({ commit }) {
+      try {
+        const res = await UserApi.getUserInfo()
+        commit('setUserInfo', res)
+        console.log('res', res)
+        return res
+      } catch (error) {
+        console.log(error)
+      }
     },
     // 登录请求
     async login({ commit }, payload) {

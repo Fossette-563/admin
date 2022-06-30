@@ -10,6 +10,15 @@ const login = (data) => {
   return request({ url: '/sys/login', method: 'POST', data })
 }
 
+/**
+ *
+ * @returns 获取用户信息
+ */
+const getUserInfo = () => {
+  return request({ url: '/sys/profile', method: 'GET' })
+}
+
 export default {
-  login
+  login,
+  getUserInfo
 }
