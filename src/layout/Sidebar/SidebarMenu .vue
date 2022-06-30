@@ -18,95 +18,19 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import MenuItem from './MenuItem'
-import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+// 引入过滤空children的文件
 import { filterMenuData } from '../../utils/menu'
-
+import { filterRouters, generateMenus } from '@/utils/router'
 const router = useRouter()
-const data = [
-  {
-    path: '/profile',
-    name: 'profile',
-    meta: {
-      title: '个人中心',
-      icon: 'personnel'
-    }
-  },
-  {
-    path: '/chart',
-    name: 'chart',
-    meta: {
-      title: '数据可视化',
-      icon: 'tree'
-    }
-  },
-  {
-    path: '/user',
-    name: 'user',
-    redirect: '/user/manage',
-    meta: {
-      title: '用户',
-      icon: 'personnel'
-    },
-    children: [
-      {
-        path: '/user/manage',
-        name: 'manage',
-        meta: {
-          title: '员工管理',
-          icon: 'personnel-manage'
-        }
-      },
-      {
-        path: '/user/role',
-        name: 'role',
-        meta: {
-          title: '角色列表',
-          icon: 'role'
-        }
-      },
-      {
-        path: '/user/permission',
-        name: 'permission',
-        meta: {
-          title: '权限列表',
-          icon: 'permission'
-        }
-      }
-    ]
-  },
-  {
-    path: '/article',
-    name: 'article',
-    meta: {
-      title: '文章',
-      icon: 'article'
-    },
-    redirect: '/article/ranking',
-    children: [
-      {
-        path: '/article/ranking',
-        name: 'ranking',
-        meta: {
-          title: '文章排名',
-          icon: 'article-ranking'
-        }
-      },
-      {
-        path: '/article/create',
-        name: 'create',
-        meta: {
-          title: '创建文章',
-          icon: 'article-create'
-        }
-      }
-    ]
-  }
-]
 console.log('router', router.getRoutes())
-
-const menuList = reactive(filterMenuData(data))
+// 去除空children
+const menuList = computed(() => {
+  const routes = filterRouters(router.getRoutes())
+  return filterMenuData(generateMenus(routes))
+})
 </script>
 
 <style lang="scss" scoped></style>
