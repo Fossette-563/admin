@@ -19,7 +19,23 @@ router.beforeEach(async (to, from, next) => {
       // // 如果当前是登录页面，就判断是否有用户信息
       // // 如果没有用户信息就获取
       if (!store.getters.hasUserInfo) {
-        await store.dispatch('user/getUserInfo')
+        const reponse = await store.dispatch('user/getUserInfo')
+        if (reponse) {
+          // 将获取的用户信息赋值并解构
+          const { permission } = reponse
+          console.log('menus', permission.menus)
+          const filterRoutes = await store.dispatch(
+            'permission/filterRoutes',
+            permission.menus
+          )
+          filterRoutes.forEach((item) => {
+            router.addRoute(item)
+          })
+          // to即将要跳转的路由
+          return next(to.path)
+        } else {
+          next('./login')
+        }
       }
       next()
     }

@@ -25,10 +25,13 @@ import { useRouter } from 'vue-router'
 import { filterMenuData } from '../../utils/menu'
 import { filterRouters, generateMenus } from '@/utils/router'
 const router = useRouter()
+// 所有的路由列表
 console.log('router', router.getRoutes())
-// 去除空children
+
 const menuList = computed(() => {
+  // 传递所有的一级路由
   const routes = filterRouters(router.getRoutes())
+  // 传递chirdren数据并去除空的children
   return filterMenuData(generateMenus(routes))
 })
 </script>

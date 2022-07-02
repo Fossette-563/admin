@@ -8,13 +8,14 @@ const getChildrenRoutes = (routes) => {
       result.push(...item.children)
     }
   })
+  console.log('hh', result)
   return result
 }
 /**
  * 获取所有的一级数据
  */
 export const filterRouters = (routes) => {
-  // childrenRoutes所有的子路由
+  // childrenRoutes:所有的子路由
   const childrenRouter = getChildrenRoutes(routes)
   // routes完整的路由16数据
   return routes.filter((route) => {
@@ -46,7 +47,7 @@ export const generateMenus = (routes) => {
       return result.push(...generateMenus(item.children))
     }
     const routePath = item.path
-    let route = result.find((item) => item.path === routePath)
+    let route = result.find((route) => route.path === routePath)
     if (!route) {
       route = {
         ...item,
