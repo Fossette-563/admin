@@ -8,7 +8,6 @@ const getChildrenRoutes = (routes) => {
       result.push(...item.children)
     }
   })
-  console.log('hh', result)
   return result
 }
 /**
@@ -44,7 +43,8 @@ export const generateMenus = (routes) => {
     if (isNull(item.meta) && isNull(item.children)) return
 
     if (isNull(item.meta) && !isNull(item.children)) {
-      return result.push(...generateMenus(item.children))
+      result.push(...generateMenus(item.children))
+      return
     }
     const routePath = item.path
     let route = result.find((route) => route.path === routePath)
@@ -62,6 +62,6 @@ export const generateMenus = (routes) => {
       route.children.push(...generateMenus(item.children))
     }
   })
-  console.log(result)
+  console.log(result, '00')
   return result
 }

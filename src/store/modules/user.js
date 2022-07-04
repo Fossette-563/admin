@@ -23,7 +23,7 @@ export default {
     logout({ commit }) {
       resetRouter()
       commit('setToken', '')
-      commit('setUserInfo', '{}')
+      commit('setUserInfo', {})
       removeItem('token')
       removeItem('userInfo')
     },

@@ -25,6 +25,7 @@ import SidebarMenu from './SidebarMenu .vue'
   display: flex;
   align-items: center;
   justify-content: center;
+
   .el-avatar {
     height: var(--59cf8ee8) px;
     background: transparent;

@@ -36,4 +36,8 @@ const menuList = computed(() => {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+el-menu {
+  border-right: none;
+}
+</style>

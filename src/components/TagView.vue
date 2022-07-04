@@ -29,11 +29,13 @@ console.log(router, 'router')
 watch(
   () => router.currentRoute.value.path,
   (toPath) => {
-    const obj = {
-      title: route.meta.title,
-      path: route.path
+    if (route.meta && route.meta.title && route.path) {
+      const obj = {
+        title: route.meta.title,
+        path: route.path
+      }
+      store.commit('tagsview/setTagsView', obj)
     }
-    store.commit('tagsview/setTagsView', obj)
   },
   { immediate: true, deep: true }
 )
