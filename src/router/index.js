@@ -32,7 +32,7 @@ const publicRoutes = [
         component: () => import('../views/chart/chart.vue'),
         meta: {
           title: '数据可视化',
-          icon: 'chart'
+          icon: 'tree'
         }
       },
       {

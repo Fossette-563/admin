@@ -1,6 +1,8 @@
 <template>
   <div class="navbar">
-    <div class="left">123</div>
+    <div class="left">
+      <breadcrumb></breadcrumb>
+    </div>
     <div class="right">
       <el-dropdown trigger="click" @command="handleComand">
         <el-avatar shape="square" :src="avatarUrl" />
@@ -22,7 +24,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-
+import Breadcrumb from '../components/Breadcrumb'
 const store = useStore()
 const router = useRouter()
 const avatarUrl = computed(() => {
@@ -63,7 +65,7 @@ const handleLogout = async () => {
   display: flex;
   justify-content: space-between;
   .left {
-    margin-left: 20px;
+    margin-left: 0px;
   }
   .right {
     margin-right: 30px;

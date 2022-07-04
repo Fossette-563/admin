@@ -22,10 +22,10 @@ export default {
       })
       // 添加 重定向 404 路由
       routes.push({
-        path: '/:catcAll(.*)',
+        path: '/:catchAll(.*)',
         redirect: '/404'
       })
-      commit('setRoutes', routes)
+      console.log(routes)
       return routes
     }
   }
